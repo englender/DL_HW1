@@ -42,6 +42,7 @@ class RandomImageDataset(Dataset):
     def __len__(self):
         """
         :return: Number of samples in this dataset.
+
         """
         # ====== YOUR CODE: ======
         raise NotImplementedError()
