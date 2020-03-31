@@ -36,18 +36,28 @@ class RandomImageDataset(Dataset):
         #  the random state outside this method.
 
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+
+        if index > self.num_samples or index < 0:
+            raise IndexError()
+        #TODO: CHECK IF CORRECT
+        torch.manual_seed(index)
+        image = torch.randint(255,self.image_dim)
+        np.random.seed(index)
+        label = np.random.randint(low=0, high=self.num_classes-1)
+
+        return image, label
+
         # ========================
 
     def __len__(self):
         """
         :return: Number of samples in this dataset.
-        # git test
+
         """
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # raise NotImplementedError()
         # ========================
-
+        return self.num_samples
 
 class SubsetDataset(Dataset):
     """
@@ -72,12 +82,17 @@ class SubsetDataset(Dataset):
         #  Return the item at index + offset from the source dataset.
         #  Raise an IndexError if index is out of bounds.
 
+        if index >= self.subset_len:
+            raise IndexError()
+
+        return self.source_dataset[self.offset+index]
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # raise NotImplementedError()
         # ========================
 
     def __len__(self):
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # raise NotImplementedError()
+        return self.subset_len
         # ========================
 
