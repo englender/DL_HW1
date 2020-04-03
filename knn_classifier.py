@@ -3,8 +3,8 @@ import torch
 from torch import Tensor
 from torch.utils.data import Dataset, DataLoader
 
-# import cs236781.dataloader_utils as dataloader_utils
-# from . import dataloaders
+import cs236781.dataloader_utils as dataloader_utils
+from . import dataloaders
 
 
 class KNNClassifier(object):
@@ -30,7 +30,9 @@ class KNNClassifier(object):
         #     y_train.
         #  2. Save the number of classes as n_classes.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        x_train, y_train = dataloader_utils.flatten(dl_train)
+        a = y_train.unique()
+        n_classes = a.nelement()
 
         # ========================
 
@@ -115,7 +117,10 @@ def accuracy(y: Tensor, y_pred: Tensor):
     # TODO: Calculate prediction accuracy. Don't use an explicit loop.
     accuracy = None
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    diff = torch.eq(y, y_pred)
+    sum = torch.sum(diff).item()
+
+    accuracy = sum / diff.nelement()
     # ========================
 
     return accuracy
