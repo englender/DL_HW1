@@ -30,10 +30,12 @@ class KNNClassifier(object):
         #     y_train.
         #  2. Save the number of classes as n_classes.
         # ====== YOUR CODE: ======
+        # x_train, y_train = dataloader_utils.flatten(dl_train)
+        # a = y_train.unique()
+        # n_classes = a.nelement()
+        # ========================
         x_train, y_train = dataloader_utils.flatten(dl_train)
-        a = y_train.unique()
-        n_classes = a.nelement()
-
+        n_classes = len(torch.unique(y_train))
         # ========================
 
         self.x_train = x_train
@@ -65,7 +67,10 @@ class KNNClassifier(object):
             #  - Set y_pred[i] to the most common class among them
             #  - Don't use an explicit loop.
             # ====== YOUR CODE: ======
-            raise NotImplementedError()
+            nearest_neighbors, indices = torch.topk(dist_matrix[:, i], k=self.k, dim=0, largest=False)
+            nearest_labels = torch.index_select(self.y_train, dim=0, index=indices)
+            label, index = torch.mode(nearest_labels)
+            y_pred[i] = label
             # ========================
 
         return y_pred
@@ -99,7 +104,30 @@ def l2_dist(x1: Tensor, x2: Tensor):
     d3 = dist3.repeat(dist2.size()[0], 1)
     dists = torch.sqrt(dist1 + d2.t() + d3)
     # ========================
-
+    # n1 = x1.size(0)
+    # n2 = x2.size(0)
+    #
+    # norm_x1 = torch.sum(x1**2, dim=1, keepdim=True)
+    # norm_x2 = torch.sum(x2**2, dim=1, keepdim=True)
+    #
+    # norm_x1 = norm_x1.expand(n1, n2)
+    # norm_x2 = norm_x2.transpose(0, 1).expand(n1, n2)
+    #
+    # norm = norm_x1 + norm_x2
+    #
+    # dists = torch.sqrt(norm - 2 * x1.mm(x2.transpose(0, 1)))
+    # ========================
+    # new_x1 = torch.sum(x1**2, 1)
+    # new_x2 = torch.sum(x2**2, 1)
+    #
+    # transposed_x2 = x2.t()
+    # mat = torch.mm(x1, transposed_x2)
+    #
+    # reshaped_x1 = torch.reshape(new_x1, [x1.shape[0], 1])
+    # reshaped_x2 = torch.reshape(new_x2, [1, x2.shape[0]])
+    #
+    # dists = torch.sqrt(reshaped_x1 -2*mat + reshaped_x2)
+    # ========================
     return dists
 
 
@@ -151,8 +179,17 @@ def find_best_k(ds_train: Dataset, k_choices, num_folds):
         #  random split each iteration), or implement something else.
 
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
-        # ========================
+        tmp_list = []
+        for j in range(num_folds):
+            dl_train, dl_valid = dataloaders.create_train_validation_loaders(ds_train, validation_ratio=(1/num_folds))
+            model.train(dl_train)
+            x_test, y_test = dataloader_utils.flatten(dl_valid)
+            y_pred = model.predict(x_test)
+            acc = accuracy(y_test, y_pred)
+            tmp_list.append(acc)
+
+        accuracies.append(tmp_list)
+    # ========================
 
     best_k_idx = np.argmax([np.mean(acc) for acc in accuracies])
     best_k = k_choices[best_k_idx]
