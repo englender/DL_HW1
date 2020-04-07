@@ -27,7 +27,15 @@ An equation: $e^{i\pi} -1 = 0$
 """
 
 part2_q2 = r"""
-**Your answer:**
+**Your answer: 
+1. When training on the entire train-set and selecting a model with respect to the train-set accuracy, we risk overfitting our model. 
+Because we are trying to choose the model's hyperparameters based on the same data that we train the model on, we will ensure that the model will work perfectly
+on the train-set but this will reduce the model generalization for unseen data. In conclusion, using k-fold CV is better than this method.
+2. When selecting the best model with respect to the test-set accuracy, we ensure that our model will work the best on our specific given test-set, and once again we
+risk in overfitting our model to a specific test-set and we will reduce the model generalization for unseen data. In other words, when we want to check 
+if our model has good performance we check the test-set and get high results because we calibrated the model based on the same set, but we can
+anticipate that we will achieve much lower results when facing unseen data.
+**
 
 
 Write your answer using **markdown** and $\LaTeX$:
