@@ -38,7 +38,7 @@ class RandomImageDataset(Dataset):
         # ====== YOUR CODE: ======
         if index > self.num_samples or index < 0:
             raise IndexError()
-        #TODO: CHECK IF CORRECT
+
         torch.manual_seed(index)
         image = torch.randint(255,self.image_dim)
         np.random.seed(index)
