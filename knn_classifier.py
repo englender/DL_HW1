@@ -104,30 +104,7 @@ def l2_dist(x1: Tensor, x2: Tensor):
     d3 = dist3.repeat(dist2.size()[0], 1)
     dists = torch.sqrt(dist1 + d2.t() + d3)
     # ========================
-    # n1 = x1.size(0)
-    # n2 = x2.size(0)
-    #
-    # norm_x1 = torch.sum(x1**2, dim=1, keepdim=True)
-    # norm_x2 = torch.sum(x2**2, dim=1, keepdim=True)
-    #
-    # norm_x1 = norm_x1.expand(n1, n2)
-    # norm_x2 = norm_x2.transpose(0, 1).expand(n1, n2)
-    #
-    # norm = norm_x1 + norm_x2
-    #
-    # dists = torch.sqrt(norm - 2 * x1.mm(x2.transpose(0, 1)))
-    # ========================
-    # new_x1 = torch.sum(x1**2, 1)
-    # new_x2 = torch.sum(x2**2, 1)
-    #
-    # transposed_x2 = x2.t()
-    # mat = torch.mm(x1, transposed_x2)
-    #
-    # reshaped_x1 = torch.reshape(new_x1, [x1.shape[0], 1])
-    # reshaped_x2 = torch.reshape(new_x2, [1, x2.shape[0]])
-    #
-    # dists = torch.sqrt(reshaped_x1 -2*mat + reshaped_x2)
-    # ========================
+
     return dists
 
 
