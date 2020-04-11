@@ -25,7 +25,6 @@ class LinearClassifier(object):
         self.weights = None
         # ====== YOUR CODE: ======
         self.weights = torch.normal(mean=0,std=weight_std,size=(n_features,n_classes))
-        # raise NotImplementedError()
         # ========================
 
     def predict(self, x: Tensor):
@@ -117,7 +116,7 @@ class LinearClassifier(object):
                 total_correct+= self.evaluate_accuracy(y_train,y_pred) * x_train.size()[0] / 100
                 counter+=1
             average_loss = average_loss / counter
-            train_res.accuracy.append(total_correct)
+            train_res.accuracy.append(total_correct/len(dl_train))
             train_res.loss.append(average_loss)
 
             total_correct, average_loss, counter = 0, 0, 0
@@ -130,7 +129,7 @@ class LinearClassifier(object):
                 total_correct += self.evaluate_accuracy(y_valid, y_pred) * x_valid.size()[0] / 100
                 counter += 1
             average_loss = average_loss / counter
-            valid_res.accuracy.append(total_correct)
+            valid_res.accuracy.append(total_correct/len(dl_valid))
             valid_res.loss.append(average_loss)
             # ========================
             print('.', end='')
@@ -152,7 +151,11 @@ class LinearClassifier(object):
         #  The output shape should be (n_classes, C, H, W).
 
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        if has_bias:
+            w_images = self.weights[1:, :].t()
+        else:
+            w_images = self.weights.t()
+        w_images = torch.reshape(w_images,shape=(self.n_classes,img_shape[0],img_shape[1],img_shape[2]))
         # ========================
 
         return w_images
@@ -165,9 +168,9 @@ def hyperparams():
     #  Manually tune the hyperparameters to get the training accuracy test
     #  to pass.
     # ====== YOUR CODE: ======
-    hp['weight_std'] = 0.1
-    hp['learn_rate'] = 0.1
-    hp['weight_decay'] = 0.01
+    hp['weight_std'] = 0.001
+    hp['learn_rate'] = 0.005
+    hp['weight_decay'] = 0.04
     # ========================
 
     return hp
