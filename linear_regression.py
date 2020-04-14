@@ -122,9 +122,10 @@ class BostonFeaturesTransformer(BaseEstimator, TransformerMixin):
 
         X_transformed = None
         # ====== YOUR CODE: ======
-        poly = sklearn.preprocessing.PolynomialFeatures(self.degree)
-        features = X[:, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]]
-        X_transformed = poly.fit_transform(features[:, 1:])
+        poly = PolynomialFeatures(self.degree)
+        # X_new = X[:, 1:]
+        # features = X_new[:, [0,1 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]]
+        X_transformed = poly.fit_transform(X[:, 1:])
         # ========================
 
         return X_transformed
@@ -226,7 +227,25 @@ def cv_best_hyperparams(model: BaseEstimator, X, y, k_folds,
     #  - You can use MSE or R^2 as a score.
 
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    # params = model.get_params()
+    kf = sklearn.model_selection.KFold(n_splits=k_folds)
+    params_grid = {'bostonfeaturestransformer__degree': degree_range, 'linearregressor__reg_lambda': lambda_range}
+    min_acc = np.inf
+
+    for params in list(sklearn.model_selection.ParameterGrid(params_grid)):
+        model.set_params(**params)
+        curr_acc = 0
+        for train_idx, test_idx in kf.split(X):
+            train_x, train_y = X[train_idx], y[train_idx]
+            test_x, test_y = X[test_idx], y[test_idx]
+            model.fit(train_x, train_y)
+            y_pred = model.predict(test_x)
+            curr_acc += mse_score(test_y, y_pred)
+        mean = curr_acc/k_folds
+        if mean < min_acc:
+            min_acc=mean
+            best_params = params
+    # model.set_params()
     # ========================
 
     return best_params

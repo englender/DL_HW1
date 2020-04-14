@@ -34,7 +34,6 @@ def create_train_validation_loaders(dataset: Dataset, validation_ratio,
     size_of_dataset = len(dataset)
     indices_list = list(range(size_of_dataset))
     split = int(validation_ratio * size_of_dataset)
-    # np.random.seed(random_seed)
     np.random.shuffle(indices_list)
     train_indices, val_indices = indices_list[split:], indices_list[:split]
 

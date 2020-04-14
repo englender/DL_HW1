@@ -14,36 +14,22 @@ Increasing the k up to a certain value will improve generalization. This happens
 the k value helps avoid giving a lot of weight to noise samples in the classification process. If we increase the k 
 value too much, we will give weight to samples that are far from the test sample, and might make our prediction wrong.
 In our case the best k value is 3, which gave us accuracy of 92%.
-**
-
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
 """
 
 part2_q2 = r"""
-**Your answer: 
-1. When training on the entire train-set and selecting a model with respect to the train-set accuracy, we risk overfitting our model. 
-Because we are trying to choose the model's hyperparameters based on the same data that we train the model on, we will ensure that the model will work perfectly
-on the train-set but this will reduce the model generalization for unseen data. In conclusion, using k-fold CV is better than this method.
-2. When selecting the best model with respect to the test-set accuracy, we ensure that our model will work the best on our specific given test-set, and once again we
-risk in overfitting our model to a specific test-set and we will reduce the model generalization for unseen data. In other words, when we want to check 
-if our model has good performance we check the test-set and get high results because we calibrated the model based on the same set, but we can
+**Your answer: **
+1. When training on the entire train-set and selecting a model with respect to the train-set accuracy, we risk 
+overfitting our model. Because we are trying to choose the model's hyperparameters based on the same data that we train 
+the model on, we will ensure that the model will work perfectlyon the train-set but this will reduce the model 
+generalization for unseen data. In conclusion, using k-fold CV is better than this method.
+
+2. When selecting the best model with respect to the test-set accuracy, we ensure that our model will work the best on 
+our specific given test-set, and once again we risk in overfitting our model to a specific test-set and we will reduce 
+the model generalization for unseen data. In other words, when we want to check if our model has good performance we 
+check the test-set and get high results because we calibrated the model based on the same set, but we can
 anticipate that we will achieve much lower results when facing unseen data.
-**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
 """
 
@@ -60,13 +46,6 @@ function (the margin loss). On the other hand, when changing the gamma parameter
 SVM loss function (the regularization loss). Both of this parameters control L(W) so we can set the delta arbitrary
 because for every chosen delta value we can control the L(W) to meet our needs through the gamma param.
  
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
 """
 
 part3_q2 = r"""
@@ -87,13 +66,6 @@ training samples in the classification process (calculating the dist) and the li
 weight matrix alone. The second difference is that knn model takes in account every feature evenly as appose the linear
 classifier that gives a different weight to every feature.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
 """
 
 part3_q3 = r"""
@@ -109,14 +81,6 @@ loss would be not as good as with a higher learning rate.
 we get a slightly better accuracy for the training set then the valid set, meaning that the model generalization is
 slightly limited because of this overfit.
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
-
 """
 
 # ==============
@@ -126,27 +90,23 @@ An equation: $e^{i\pi} -1 = 0$
 
 part4_q1 = r"""
 **Your answer:**
+The ideal pattern to see in a residual plot is a plot that all points are near the x axis, meaning that for a single 
+sample the difference between the prediction of y value to its ground truth is as small as possible.
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+We can see based on the residual plot that we got that the fitness of the last model is better than fitness of the 
+top 5 features model. The data points of the last model plot are compressed more tightly around the x axis than the 
+previous one. Also we can see that the maximum difference between the prediction and the ground truth is bigger on the 
+top 5 features model and that there are more data points with a larger difference.
 
 """
 
 part4_q2 = r"""
 **Your answer:**
 
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+2. For each sets of parameters we fit our model for every fold, therefor for each set of parameters we fit the model
+k_folds times. The parameters we checked in our CV are lambda and degree, so the number of parameters set is the number 
+of degrees possible times the number of lambda possible, meaning degree_range*lambda_range. In total we fit our model
+k_folds * degree_range * lambda_range, and in our case its 3*3*20=180.
 
 """
 
