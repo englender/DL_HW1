@@ -102,6 +102,12 @@ top 5 features model and that there are more data points with a larger differenc
 
 part4_q2 = r"""
 **Your answer:**
+1. When using logspace instead of linspace we scan the entire lambda range, but most of our focus is on smaller values.
+The lambda hyperparameter controls the importance of the regularization factor - the smaller this value is the risk for
+complex loss function is greater, thus the risk for overfitting is greater. Therefore, if we get the best results by CV
+for the loss function with smaller lambda value, we can conclude that the model generalization for unseen data will 
+increase. However, if we didn't get good results for smaller value, then we will try the bigger values, and that why
+the use og logspace will fit in this case.
 
 2. For each sets of parameters we fit our model for every fold, therefor for each set of parameters we fit the model
 k_folds times. The parameters we checked in our CV are lambda and degree, so the number of parameters set is the number 
