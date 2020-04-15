@@ -123,8 +123,6 @@ class BostonFeaturesTransformer(BaseEstimator, TransformerMixin):
         X_transformed = None
         # ====== YOUR CODE: ======
         poly = PolynomialFeatures(self.degree)
-        # X_new = X[:, 1:]
-        # features = X_new[:, [0,1 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]]
         X_transformed = poly.fit_transform(X[:, 1:])
         # ========================
 
@@ -154,8 +152,6 @@ def top_correlated_features(df: DataFrame, target_feature, n=5):
     top_n_features = table_abs.nlargest(n=n+1).sort_values(ascending=False)
     top_n_features = [feature[0] for feature in top_n_features[1:].items()]
     top_n_corr = [table.get(f) for f in top_n_features]
-
-
     # ========================
 
     return top_n_features, top_n_corr
@@ -245,7 +241,6 @@ def cv_best_hyperparams(model: BaseEstimator, X, y, k_folds,
         if mean < min_acc:
             min_acc=mean
             best_params = params
-    # model.set_params()
     # ========================
 
     return best_params

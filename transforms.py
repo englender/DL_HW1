@@ -30,8 +30,7 @@ class InvertColors(object):
         # TODO: Invert the colors of the input image.
         # ====== YOUR CODE: ======
         v = torch.full_like(x, 1)
-        # v = torch.ones(32)
-        return v - x        
+        return v - x
         # ========================
 
 
@@ -43,7 +42,7 @@ class FlipUpDown(object):
         """
         # TODO: Flip the input image so that up is down.
         # ====== YOUR CODE: ======
-        return torch.flip(x,[1])        
+        return torch.flip(x, [1])
         # ========================
 
 
@@ -69,7 +68,7 @@ class BiasTrick(object):
         #  Hint: See torch.cat().
         # ====== YOUR CODE: ======
         size_vec = list(x.size())
-        size_vec[-1]=1
+        size_vec[-1] = 1
         vec1 = torch.ones(size=size_vec, dtype=x.dtype)
 
         new_tensor = torch.cat((vec1, x), dim=-1)

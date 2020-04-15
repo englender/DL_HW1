@@ -39,8 +39,8 @@ class RandomImageDataset(Dataset):
         if index > self.num_samples or index < 0:
             raise IndexError()
 
-        torch.manual_seed(index)
-        image = torch.randint(255,self.image_dim)
+        generator = torch.manual_seed(index)
+        image = torch.randint(255,self.image_dim, generator=generator)
         np.random.seed(index)
         label = np.random.randint(low=0, high=self.num_classes-1)
 

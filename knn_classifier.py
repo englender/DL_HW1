@@ -30,10 +30,6 @@ class KNNClassifier(object):
         #     y_train.
         #  2. Save the number of classes as n_classes.
         # ====== YOUR CODE: ======
-        # x_train, y_train = dataloader_utils.flatten(dl_train)
-        # a = y_train.unique()
-        # n_classes = a.nelement()
-        # ========================
         x_train, y_train = dataloader_utils.flatten(dl_train)
         n_classes = len(torch.unique(y_train))
         # ========================
@@ -166,7 +162,7 @@ def find_best_k(ds_train: Dataset, k_choices, num_folds):
             tmp_list.append(acc)
 
         accuracies.append(tmp_list)
-        # ========================
+    # ========================
 
     best_k_idx = np.argmax([np.mean(acc) for acc in accuracies])
     best_k = k_choices[best_k_idx]

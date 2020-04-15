@@ -24,7 +24,7 @@ class LinearClassifier(object):
 
         self.weights = None
         # ====== YOUR CODE: ======
-        self.weights = torch.normal(mean=0,std=weight_std,size=(n_features,n_classes))
+        self.weights = torch.normal(mean=0, std=weight_std, size=(n_features, n_classes))
         # ========================
 
     def predict(self, x: Tensor):
@@ -46,7 +46,7 @@ class LinearClassifier(object):
 
         y_pred, class_scores = None, None
         # ====== YOUR CODE: ======
-        class_scores = torch.mm(x,self.weights)
+        class_scores = torch.mm(x, self.weights)
         y_pred = torch.argmax(class_scores, dim=1)
         # ========================
 
@@ -105,7 +105,7 @@ class LinearClassifier(object):
             #     using the weight_decay parameter.
 
             # ====== YOUR CODE: ======
-            counter=0
+            counter = 0
             for x_train, y_train in dl_train:
                 y_pred, x_scores = self.predict(x_train)
                 batch_loss = loss_fn.loss(x_train,y_train,x_scores,y_pred)
@@ -125,7 +125,7 @@ class LinearClassifier(object):
                 y_pred, x_scores = self.predict(x_valid)
                 batch_loss = loss_fn.loss(x_valid,y_valid,x_scores,y_pred)
                 batch_loss += (weight_decay/2)*(torch.norm(self.weights)**2)
-                average_loss += (dl_valid.batch_size/x_valid.shape[0]) * batch_loss # for a smaller batch
+                average_loss += (dl_valid.batch_size/x_valid.shape[0]) * batch_loss  # for a smaller batch
                 total_correct += self.evaluate_accuracy(y_valid, y_pred) * x_valid.size()[0] / 100
                 counter += 1
             average_loss = average_loss / counter
